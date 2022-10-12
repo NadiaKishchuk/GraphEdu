@@ -1,0 +1,135 @@
+﻿<Page xmlns:syncfusion="http://schemas.syncfusion.com/wpf"  x:Class="GraphEdu.Fractals"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:b="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:local="clr-namespace:GraphEdu" xmlns:i="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
+      mc:Ignorable="d" 
+      d:DesignHeight="1000" d:DesignWidth="1680"
+      Title="Fractals">
+    <Page.Resources>
+        <Style x:Key="SideBarButtonsFractal" TargetType="Button">
+            <Setter Property="Background" Value="#E5E8FF"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Width" Value="55"/>
+            <Setter Property="Height" Value="55" />
+         
+        </Style>
+    </Page.Resources>
+
+
+    <Grid Background="White">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="1100"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions >
+            <RowDefinition Height="70"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="Fractal z*sin z" VerticalAlignment="Center"
+                        HorizontalAlignment="Center" FontFamily="Nirmala UI" FontSize="24" />
+
+        
+        <Image Grid.Row="1" Grid.Column="1" Name="FractalImage"
+               HorizontalAlignment="Stretch" VerticalAlignment="Top"
+               Width="1100" Height="600"
+               MouseMove="FractalImageMouseMove"
+               Drop="FractalImageMouseDrop"
+               AllowDrop="True"/>
+        <StackPanel Grid.Row="1" Grid.Column="2" Width="70" VerticalAlignment="Top" HorizontalAlignment="Left" Background="#E5E8FF" Height="600">
+            <Button Style="{StaticResource  SideBarButtonsFractal}" Click="SaveFractal" Margin="0 10 0  0">
+                <Image Source="../images/direct-download.png" />
+                <Button.ToolTip>
+                    <ToolTip Background="#858DC9"  FontFamily="Nirmala UI">
+                        Завантажити
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+            
+            <Button Style="{StaticResource  SideBarButtonsFractal}" Click="ZoomOutImage" Margin="0 80 0 0" >
+                <Image Source="../images/zoomOut.png"  />
+                <Button.ToolTip>
+                    <ToolTip Background="#858DC9"  FontFamily="Nirmala UI">
+                        Зменшити
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+            
+            <Button Style="{StaticResource  SideBarButtonsFractal}" Click="ZoomInImage" Margin="0 20 0 0" >
+                <Image Source="../images/zoomIn.png" />
+                <Button.ToolTip>
+                    <ToolTip Background="#858DC9" Foreground="Black" FontFamily="Nirmala UI">
+                        Збільшити
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+
+            <Button x:Name="ButtonPaint" Style="{StaticResource  SideBarButtonsFractal}" Click="PopupPaintControl" Margin="0 20 0 0" >
+                <Image Source="../images/paint.png" ></Image>
+            </Button>
+            <Popup Margin=" 40 " Name="PopupPaint" PlacementTarget="{Binding ElementName=ButtonPaint }"  Placement="Left">
+                <StackPanel Background="#858DC9" Width="225">
+                    <TextBlock  HorizontalAlignment="Left" FontFamily="Nirmala UI" FontSize="18">Choose 3 colors</TextBlock>
+                    <syncfusion:ColorPicker Width="120" HorizontalAlignment="Left"  Brush="#00FF00" x:Name="ColorPicker1"/>
+                    <syncfusion:ColorPicker Width="120" HorizontalAlignment="Left"   Brush="#F33BEE" x:Name="ColorPicker2"/>
+                    <syncfusion:ColorPicker Width="120" HorizontalAlignment="Left"  Brush="#F8E301" x:Name="ColorPicker3"/>
+                    <Button FontFamily="Nirmala UI" Background="#E5E8FF" Width="70" FontSize="18" Foreground="#12173D" HorizontalAlignment="Right" Content="Apply" Click="ApplyColor"/>
+                </StackPanel>
+                
+            </Popup >
+            <Button x:Name="HintButtonFractals"    Style="{StaticResource  SideBarButtonsFractal}" Margin="0 80 0 0" >
+                <Image Source="../images/idea.png" />
+                <Button.ToolTip>
+                    <ToolTip BorderThickness="0"  Background="#858DC9" Width="300" >
+                        <RichTextBox   Background="#858DC9" BorderThickness="0" BorderBrush="#858DC9" >
+                            <FlowDocument >
+                                <Paragraph  FontSize="13" FontFamily="Nirmala UI" >Щоб змінити колір зображення, натисни на
+                                    <Image Source="../images/paint.png" Width="13" Height="13"/> , вибери кольори та натисни на кнопку “Apply”. За допомогою
+                                    <Image Source="../images/zoomIn.png" Width="13" Height="13" />
+                                    <Image Source="../images/zoomOut.png" Width="13" Height="13" /> можна збільшити на зменшити зображення, а
+                                    <Image Source="../images/direct-download.png" Width="13" Height="13" /> завантажити його. Перетягнувши зображення, можна змінити його розміщення
+                                    
+                                </Paragraph>
+                            </FlowDocument>
+                        </RichTextBox>
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+
+            <Button x:Name="QuestionButtonFractals"   Style="{StaticResource  SideBarButtonsFractal}" Margin="0 35 0 0" MouseEnter="Question_MouseEnter"  HorizontalAlignment="Center"  VerticalAlignment="Center" >
+                <Image Source="../images/question.png" />
+            </Button>
+
+           
+            <Popup Name="popupQuestion" PlacementTarget="{Binding ElementName=QuestionButtonFractals }" MouseLeave="Question_MouseLeave">
+                <RichTextBox IsReadOnly="True" IsDocumentEnabled="True"  Background="#858DC9"  Width="300" >
+                    <FlowDocument Background="#858DC9">
+                        <Paragraph Background="#858DC9" FontSize="13" FontFamily="Nirmala UI" >
+                            Фрактал - це структура, що складається з частин, які в якомусь сенсі подібні до цілого. Детальнішу інформацію можеш знайти
+                            <Bold>
+                                <Hyperlink  NavigateUri="https://uk.wikipedia.org/wiki/%D0%A4%D1%80%D0%B0%D0%BA%D1%82%D0%B0%D0%BB" RequestNavigate="Hyperlink_RequestNavigate" >
+                                тут
+                            </Hyperlink>
+                            </Bold>
+                            або
+                            <Bold>перейшовши до наших навчальних матеріалів</Bold>
+                               
+                                
+
+
+                        </Paragraph>
+                    </FlowDocument>
+                </RichTextBox>
+            </Popup>
+        </StackPanel>
+
+        
+        
+
+    </Grid>
+</Page>

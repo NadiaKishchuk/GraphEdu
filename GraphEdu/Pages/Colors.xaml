@@ -1,0 +1,189 @@
+﻿<Page x:Class="GraphEdu.Colors"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GraphEdu"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:Behavior ="clr-namespace:GraphEdu.Behavior"
+      xmlns:Converter ="clr-namespace:GraphEdu.Converters"
+      mc:Ignorable="d" 
+     d:DesignHeight="1010" d:DesignWidth="1680"
+      Title="Colors">
+    <Page.Resources>
+      
+
+        <Style x:Key="TextBlockTitle" TargetType="TextBlock">
+            <Setter Property="Background" Value="#E5E8FF"/>
+            <Setter Property="FontFamily" Value="Nirmala UI"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            
+        </Style>
+        <Style x:Key="TextForNumbers" TargetType="TextBlock">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="FontFamily" Value="Nirmala UI"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="44"/>
+            <Setter Property="Height" Value="33"/>
+
+        </Style>
+        <Style x:Key="Title" TargetType="StackPanel">
+            <Setter Property="Background" Value="#E5E8FF"/>
+            <Setter Property="Height" Value="48"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Orientation" Value="Horizontal"/>
+            <Setter Property="Width" Value="620"/>
+
+        </Style>
+        <Style x:Key="TitleButtom" TargetType="Button">
+            <Setter Property="Background" Value="#E5E8FF"/>
+        </Style>
+        <Style x:Key="ImagesColors" TargetType="Image">
+            <Setter Property="Width" Value="620"/>
+            <Setter Property="Height" Value="490"/>
+           
+        </Style>
+        <Converter:ColorConverter x:Key="ColorConverter"></Converter:ColorConverter>
+    </Page.Resources>
+    <Grid  Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="490"/>
+            <RowDefinition Height="150"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Margin="20 0"  Style="{StaticResource Title}">
+            <TextBlock Margin="160 0" Style="{StaticResource TextBlockTitle}">Before transformation</TextBlock>
+            <Button Style="{StaticResource TitleButtom}"  BorderThickness="0" 
+                    Command="{Binding UploadImageCommand}" CommandParameter="{Binding ElementName=OriginalImage}">
+                <Image   Source="../images/upload.png" Width="34" Height="34" />
+            </Button>
+        </StackPanel>
+        <Image Source="{Binding ImageSource,Mode=TwoWay}" Style="{StaticResource ImagesColors}" Margin="30 0"
+               Grid.Column="0"  Grid.Row="1"  x:Name="OriginalImage">
+            <i:Interaction.Behaviors>
+                <Behavior:ImageBehaviorMousePointToColor  
+                                         SelectedColor="{Binding PixelColor, Mode=TwoWay}"/>
+            </i:Interaction.Behaviors>
+        </Image>
+
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Background="#E5E8FF" >
+            <TextBlock Style="{StaticResource TextBlockTitle}" >HSL </TextBlock>
+            <StackPanel Orientation="Horizontal" Margin=" 20 20">
+                <TextBlock Margin="18 0" Style="{StaticResource TextForNumbers}" Text="{Binding MousePosX,Mode=TwoWay}"/>
+                <TextBlock Margin="18 0"  Style="{StaticResource TextForNumbers}" Text="{Binding MousePosY ,Mode=TwoWay }"/>
+                <TextBlock Margin="18 0"  Style="{StaticResource TextForNumbers}" Text="1"/>
+                
+            </StackPanel>
+            <Ellipse Width="80" Height="80" Fill="{Binding Path =PixelColor, Mode=TwoWay, Converter= {StaticResource ColorConverter}}" ></Ellipse>
+            
+            <TextBlock Margin="0 20 0 0" Style="{StaticResource TextBlockTitle}" >HSL</TextBlock>
+            <StackPanel Orientation="Horizontal" Margin=" 20 20">
+                <TextBlock x:Name="X" Margin="10 0" Style="{StaticResource TextForNumbers}" Text="1"/>
+                <TextBlock x:Name="Y" Margin="10 0"  Style="{StaticResource TextForNumbers}" Text="1"/>
+                <TextBlock  x:Name="W" Margin="10 0"  Style="{StaticResource TextForNumbers}"/>
+                <TextBlock  x:Name="H" Margin="10 0"  Style="{StaticResource TextForNumbers}"/>
+            </StackPanel>
+            <Ellipse VerticalAlignment="Stretch" Width="80" Height="80" Fill="{Binding Path =PixelColor, Mode=TwoWay,Converter= {StaticResource ColorConverter} }" ></Ellipse>
+            <TextBlock Margin="0 20 0 0" Style="{StaticResource TextBlockTitle}">Saturation yellow</TextBlock>
+            <Slider AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" Margin="15" Height="20" >
+                <Slider.Background>
+                    <LinearGradientBrush StartPoint="0 0" EndPoint="1 0">
+                        <LinearGradientBrush.GradientStops>
+                            <GradientStop Offset="0.1" Color="White" />
+                            <GradientStop Offset="1" Color="Yellow" />
+                        </LinearGradientBrush.GradientStops>
+                    </LinearGradientBrush>
+                </Slider.Background>
+            </Slider>
+        </StackPanel>
+        
+        
+        <StackPanel Margin=" 20 0" Grid.Row="0" Grid.Column="2"  Style="{StaticResource Title}">
+            <TextBlock Margin="170 0" Style="{StaticResource TextBlockTitle}">After transformation</TextBlock>
+            <Button Style="{StaticResource TitleButtom}" BorderThickness="0">
+                <Image   Source="../images/direct-download.png" Width="34" Height="34" />
+            </Button>
+        </StackPanel>
+        <Image Source="{Binding Path=WriteableBitmap}" Style="{StaticResource ImagesColors}"
+               Grid.Column="2" Grid.Row="1" Margin="30 0" x:Name="ConvertedImage">
+            
+        </Image>
+
+        <Image Margin="30 0 0 0" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="2"
+               Width="120" Height="120" Source="../images/catSmile.png"/>
+        
+        <StackPanel Width="40" Margin="20" Grid.Row="2" Grid.Column="2" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top" >
+            <Button Width="40" Height="40 "  Margin="0 10" x:Name="HintButtonFractals" Background="White"  >
+                <Image Source="../images/idea.png" />
+                <Button.ToolTip>
+                    <ToolTip BorderThickness="0"  Background="#858DC9" Width="300" >
+                        <RichTextBox   Background="#858DC9" BorderThickness="0" BorderBrush="#858DC9" >
+                            <FlowDocument >
+                                <Paragraph  FontSize="13" FontFamily="Nirmala UI" >Завантаж зображення натиснувши
+                                    <Image Width="13" Height="13"  Source="../images/direct-download.png" />
+                                    та вибери його. Користуйся повзунком для зміни насиченості жовтого. Можна завантажити змінене фото натиснувши
+                                    <Image Width="13" Height="13"  Source="/images/upload.png" />
+. Навівши курсором на зображення отримаєш значення кольору пікселя в моделях HSL i CMYK
+                                </Paragraph>
+                            </FlowDocument>
+                        </RichTextBox>
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+
+            <Button x:Name="QuestionButtonFractals" Margin="0 10" Background="White"   HorizontalAlignment="Center"  VerticalAlignment="Center" >
+                <Image Source="../images/question.png" />
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseEnter">
+                        <i:InvokeCommandAction Command="{Binding Path=CommandPopup}" CommandParameter="{Binding ElementName=popupQuestion}"/>
+                        
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+
+
+            <Popup Name="popupQuestion" PlacementTarget="{Binding ElementName=QuestionButtonFractals }">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeave">
+                        <i:InvokeCommandAction Command="{Binding Path=CommandPopup}" CommandParameter="{Binding ElementName=popupQuestion}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <RichTextBox IsReadOnly="True" IsDocumentEnabled="True"  Background="#858DC9"  Width="300" >
+                    <FlowDocument Background="#858DC9">
+                        <Paragraph Background="#858DC9" FontSize="13" FontFamily="Nirmala UI" >
+                            Ко́лірна модель — абстрактна модель опису представлення кольорів у вигляді кортежів (наборів) чисел, зазвичай з трьох або чотирьох значень, званих колірними компонентами або колірними координатами.  CMY(CMYK) -  модель, яка формується шаром фарби з трьох компонент (блакитний/Cyan, Magenta/пурпурний, Yellow/жовтий). HSL - колірна модель, в якій будь-який колір визначається трьома характеристиками: кольоровим тоном (Hue), наприклад, синім; насиченістю (Saturation); «світністю» (Lightness), тобто близькістю до білого кольору. Детальніше
+                            тут:<Bold>
+                                <Hyperlink x:Name="ColorModelUri" NavigateUri="https://uk.wikipedia.org/wiki/%D0%9A%D0%BE%D0%BB%D1%96%D1%80%D0%BD%D0%B0_%D0%BC%D0%BE%D0%B4%D0%B5%D0%BB%D1%8C"  RequestNavigate="Hyperlink_RequestNavigate">колірна модель
+                                   
+                                </Hyperlink>,
+                                <Hyperlink x:Name="CMYKUri" NavigateUri="https://uk.wikipedia.org/wiki/CMYK" RequestNavigate="Hyperlink_RequestNavigate">
+                                    <!--<i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="RequestNavigate">
+                                            <i:InvokeCommandAction Command="{Binding Path=HyperLinkManage}" CommandParameter="{Binding ElementName=CMYKUri.RequestNavigate}"></i:InvokeCommandAction>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>-->
+                                    CMYK</Hyperlink> ,
+                                <Hyperlink x:Name="HSLUri" NavigateUri="https://uk.wikipedia.org/wiki/HSL" RequestNavigate="Hyperlink_RequestNavigate">
+                                    HSL</Hyperlink>
+                            </Bold> або
+                            <Bold>в наших навчальних матеріалах</Bold>
+
+                        </Paragraph>
+                    </FlowDocument>
+                </RichTextBox>
+            </Popup>
+        </StackPanel>
+    </Grid>
+    
+</Page>

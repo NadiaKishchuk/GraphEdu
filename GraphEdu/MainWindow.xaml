@@ -1,0 +1,60 @@
+﻿<Window x:Class="GraphEdu.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GraphEdu"
+        mc:Ignorable="d"
+        Title="GraphEdu" Height="1080" Width="1680"
+        WindowState="Maximized"
+        ResizeMode="CanResize" MinHeight="500" MinWidth="600">
+    <Grid Margin="0">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height=" 70"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+
+        </Grid.ColumnDefinitions>
+        <Grid Background = "#F4DE50" Grid.ColumnSpan="3"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"/>
+
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="GraphEdu" VerticalAlignment="Center"
+                       FontFamily="Nirmala UI" FontSize="28" Grid.Column="1"/>
+            <Image x:Name="Icon" Stretch="Fill" Source="images/computer.png" Height="70"
+                   Width="70" >
+               
+            </Image>
+
+        </Grid>
+        <Grid Grid.Column="2 ">
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="FigureMoving" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                       FontFamily="Nirmala UI" FontSize="28"/>
+            <TextBlock Text="Colors" HorizontalAlignment="Center" VerticalAlignment="Center"  
+                       FontFamily="Nirmala UI"  FontSize="28" Grid.Column="1" MouseDown="ColorsClicked"/>
+            <TextBlock Text="Fractals" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                       FontFamily="Nirmala UI"  FontSize="28" Grid.Column="2" MouseDown="MouseDownFractals"/>
+            <TextBlock Text="Tutorial" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                       FontFamily="Nirmala UI"  FontSize="28" Grid.Column="3"/>
+        </Grid>
+        <Frame x:Name="Main" Background="Red" Grid.Row="1" Grid.ColumnSpan="3">
+           
+            
+        </Frame>
+        
+
+    </Grid>
+</Window>
