@@ -68,7 +68,7 @@
                 <Image   Source="../images/upload.png" Width="34" Height="34" />
             </Button>
         </StackPanel>
-        <Image Source="{Binding ImageSource,Mode=TwoWay}" Style="{StaticResource ImagesColors}" Margin="30 0"
+        <Image Source="{Binding Path= ImageSourceHSL,Mode=TwoWay}" Style="{StaticResource ImagesColors}" Margin="30 0"
                Grid.Column="0"  Grid.Row="1"  x:Name="OriginalImage">
             <i:Interaction.Behaviors>
                 <Behavior:ImageBehaviorMousePointToColor  
@@ -77,26 +77,26 @@
         </Image>
 
 
-        <StackPanel Grid.Row="1" Grid.Column="1" Background="#E5E8FF" >
+        <StackPanel Grid.Row="1" Grid.Column="1" Background="#E5E8FF" HorizontalAlignment="Right" Width="300" >
             <TextBlock Style="{StaticResource TextBlockTitle}" >HSL </TextBlock>
             <StackPanel Orientation="Horizontal" Margin=" 20 20">
-                <TextBlock Margin="18 0" Style="{StaticResource TextForNumbers}" Text="{Binding MousePosX,Mode=TwoWay}"/>
-                <TextBlock Margin="18 0"  Style="{StaticResource TextForNumbers}" Text="{Binding MousePosY ,Mode=TwoWay }"/>
-                <TextBlock Margin="18 0"  Style="{StaticResource TextForNumbers}" Text="1"/>
+                <TextBlock Margin="18 0" Style="{StaticResource TextForNumbers}" Text="{Binding Hue,Mode=TwoWay}"/>
+                <TextBlock Margin="18 0"  Style="{StaticResource TextForNumbers}" Text="{Binding Saturation ,Mode=TwoWay }"/>
+                <TextBlock Margin="18 0"  Style="{StaticResource TextForNumbers}" Text="{Binding Lightness ,Mode=TwoWay }"/>
                 
             </StackPanel>
-            <Ellipse Width="80" Height="80" Fill="{Binding Path =PixelColor, Mode=TwoWay, Converter= {StaticResource ColorConverter}}" ></Ellipse>
-            
+            <Ellipse Width="80" Height="80" Fill="{Binding Path =PixelColorHSL, Converter= {StaticResource ColorConverter}, Mode=TwoWay}" ></Ellipse>
+
             <TextBlock Margin="0 20 0 0" Style="{StaticResource TextBlockTitle}" >HSL</TextBlock>
             <StackPanel Orientation="Horizontal" Margin=" 20 20">
-                <TextBlock x:Name="X" Margin="10 0" Style="{StaticResource TextForNumbers}" Text="1"/>
-                <TextBlock x:Name="Y" Margin="10 0"  Style="{StaticResource TextForNumbers}" Text="1"/>
-                <TextBlock  x:Name="W" Margin="10 0"  Style="{StaticResource TextForNumbers}"/>
-                <TextBlock  x:Name="H" Margin="10 0"  Style="{StaticResource TextForNumbers}"/>
+                <TextBlock  Margin="10 0" Style="{StaticResource TextForNumbers}" Text="{Binding Path=Cian, Mode=TwoWay}"/>
+                <TextBlock  Margin="10 0" Style="{StaticResource TextForNumbers}"  Text="{Binding Path=Magenta, Mode=TwoWay}"/>
+                <TextBlock   Margin="10 0" Style="{StaticResource TextForNumbers}"  Text="{Binding Path=Yellow, Mode=TwoWay}"/>
+                <TextBlock  Margin="10 0"  Style="{StaticResource TextForNumbers}" Text="{Binding Path=Black, Mode=TwoWay}"/>
             </StackPanel>
-            <Ellipse VerticalAlignment="Stretch" Width="80" Height="80" Fill="{Binding Path =PixelColor, Mode=TwoWay,Converter= {StaticResource ColorConverter} }" ></Ellipse>
+            <Ellipse VerticalAlignment="Stretch" Width="80" Height="80" Fill="{Binding Path =PixelColorCMYK, Converter= {StaticResource ColorConverter}, Mode=TwoWay }" ></Ellipse>
             <TextBlock Margin="0 20 0 0" Style="{StaticResource TextBlockTitle}">Saturation yellow</TextBlock>
-            <Slider AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" Margin="15" Height="20" >
+            <Slider Minimum="-100"   Maximum="100" AutoToolTipPlacement="TopLeft" x:Name="SaturationSlider"  AutoToolTipPrecision="0" Margin="15" Height="20" >
                 <Slider.Background>
                     <LinearGradientBrush StartPoint="0 0" EndPoint="1 0">
                         <LinearGradientBrush.GradientStops>
@@ -105,6 +105,12 @@
                         </LinearGradientBrush.GradientStops>
                     </LinearGradientBrush>
                 </Slider.Background>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="ValueChanged">
+                        <i:InvokeCommandAction Command="{Binding Path=ChangeSaturationYellow}" CommandParameter="{Binding ElementName=SaturationSlider, Path=Value}"/>
+
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
             </Slider>
         </StackPanel>
         
@@ -115,7 +121,7 @@
                 <Image   Source="../images/direct-download.png" Width="34" Height="34" />
             </Button>
         </StackPanel>
-        <Image Source="{Binding Path=WriteableBitmap}" Style="{StaticResource ImagesColors}"
+        <Image Source="{Binding Path=WriteableBitmapCMYK}" Style="{StaticResource ImagesColors}"
                Grid.Column="2" Grid.Row="1" Margin="30 0" x:Name="ConvertedImage">
             
         </Image>
