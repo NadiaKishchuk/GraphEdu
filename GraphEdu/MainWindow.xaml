@@ -27,7 +27,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <TextBlock Text="GraphEdu" VerticalAlignment="Center"
-                       FontFamily="Nirmala UI" FontSize="28" Grid.Column="1"/>
+                       FontFamily="Nirmala UI" FontSize="28" Grid.Column="1" MouseDown="MouseDownGrapgEdu"/>
             <Image x:Name="Icon" Stretch="Fill" Source="images/computer.png" Height="70"
                    Width="70" >
                
@@ -41,16 +41,16 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="FigureMoving" HorizontalAlignment="Center" VerticalAlignment="Center" 
+            <TextBlock Text="FigureMoving" HorizontalAlignment="Center" VerticalAlignment="Center" MouseDown="MovingClicked"
                        FontFamily="Nirmala UI" FontSize="28"/>
             <TextBlock Text="Colors" HorizontalAlignment="Center" VerticalAlignment="Center"  
                        FontFamily="Nirmala UI"  FontSize="28" Grid.Column="1" MouseDown="ColorsClicked"/>
             <TextBlock Text="Fractals" HorizontalAlignment="Center" VerticalAlignment="Center" 
                        FontFamily="Nirmala UI"  FontSize="28" Grid.Column="2" MouseDown="MouseDownFractals"/>
-            <TextBlock Text="Tutorial" HorizontalAlignment="Center" VerticalAlignment="Center" 
+            <TextBlock Text="Tutorial" HorizontalAlignment="Center" VerticalAlignment="Center" MouseDown="TutorialClick"
                        FontFamily="Nirmala UI"  FontSize="28" Grid.Column="3"/>
         </Grid>
-        <Frame x:Name="Main" Background="Red" Grid.Row="1" Grid.ColumnSpan="3">
+        <Frame x:Name="Main" Grid.Row="1" Grid.ColumnSpan="3" NavigationUIVisibility="Hidden">
            
             
         </Frame>

@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\3 year\CG\GraphEdu\GraphEdu\obj\Debug\
+D:\3 year-2\CG\GraphEdu\GraphEdu\obj\Debug\
 GraphEdu
 none
 false
 DEBUG;TRACE
-D:\3 year\CG\GraphEdu\GraphEdu\App.xaml
-4-1918257734
+D:\3 year-2\CG\GraphEdu\GraphEdu\App.xaml
+10-1865696168
 
-17-100984749
-29-160532627
-Pages\Colors.xaml;Pages\Fractals.xaml;Pages\GenerationFractal.xaml;MainWindow.xaml;
+24-929738956
+43-632089363
+Pages\Colors.xaml;Pages\FigureMoving.xaml;Pages\Fractals.xaml;MainWindow.xaml;Pages\StartPage.xaml;Pages\Tutorial.xaml;Pages\WarningWindow.xaml;TutorialUserController\GameSnake.xaml;TutorialUserController\InformationUserController.xaml;Windows\InformationWindow.xaml;
 
 False
 

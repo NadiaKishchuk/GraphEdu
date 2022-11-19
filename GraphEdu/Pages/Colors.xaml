@@ -64,7 +64,8 @@
         <StackPanel Margin="20 0"  Style="{StaticResource Title}">
             <TextBlock Margin="160 0" Style="{StaticResource TextBlockTitle}">Before transformation</TextBlock>
             <Button Style="{StaticResource TitleButtom}"  BorderThickness="0" 
-                    Command="{Binding UploadImageCommand}" CommandParameter="{Binding ElementName=OriginalImage}">
+                    Command="{Binding UploadImageCommand}" 
+                    CommandParameter="{Binding ElementName=OriginalImage}">
                 <Image   Source="../images/upload.png" Width="34" Height="34" />
             </Button>
         </StackPanel>
@@ -78,7 +79,7 @@
 
 
         <StackPanel Grid.Row="1" Grid.Column="1" Background="#E5E8FF" HorizontalAlignment="Right" Width="300" >
-            <TextBlock Style="{StaticResource TextBlockTitle}" >HSL </TextBlock>
+            <TextBlock Style="{StaticResource TextBlockTitle}" >HSL</TextBlock>
             <StackPanel Orientation="Horizontal" Margin=" 20 20">
                 <TextBlock Margin="18 0" Style="{StaticResource TextForNumbers}" Text="{Binding Hue,Mode=TwoWay}"/>
                 <TextBlock Margin="18 0"  Style="{StaticResource TextForNumbers}" Text="{Binding Saturation ,Mode=TwoWay }"/>
@@ -87,7 +88,7 @@
             </StackPanel>
             <Ellipse Width="80" Height="80" Fill="{Binding Path =PixelColorHSL, Converter= {StaticResource ColorConverter}, Mode=TwoWay}" ></Ellipse>
 
-            <TextBlock Margin="0 20 0 0" Style="{StaticResource TextBlockTitle}" >HSL</TextBlock>
+            <TextBlock Margin="0 20 0 0" Style="{StaticResource TextBlockTitle}" >CMYK</TextBlock>
             <StackPanel Orientation="Horizontal" Margin=" 20 20">
                 <TextBlock  Margin="10 0" Style="{StaticResource TextForNumbers}" Text="{Binding Path=Cian, Mode=TwoWay}"/>
                 <TextBlock  Margin="10 0" Style="{StaticResource TextForNumbers}"  Text="{Binding Path=Magenta, Mode=TwoWay}"/>
@@ -117,11 +118,14 @@
         
         <StackPanel Margin=" 20 0" Grid.Row="0" Grid.Column="2"  Style="{StaticResource Title}">
             <TextBlock Margin="170 0" Style="{StaticResource TextBlockTitle}">After transformation</TextBlock>
-            <Button Style="{StaticResource TitleButtom}" BorderThickness="0">
+            <Button 
+                Command="{Binding DownloadImageCommand}" 
+                CommandParameter="{Binding ElementName=ConvertedImage}" 
+                Style="{StaticResource TitleButtom}" BorderThickness="0">
                 <Image   Source="../images/direct-download.png" Width="34" Height="34" />
             </Button>
         </StackPanel>
-        <Image Source="{Binding Path=WriteableBitmapCMYK}" Style="{StaticResource ImagesColors}"
+        <Image  Source="{Binding Path=WriteableBitmapCMYK}" Style="{StaticResource ImagesColors}"
                Grid.Column="2" Grid.Row="1" Margin="30 0" x:Name="ConvertedImage">
             
         </Image>
@@ -174,16 +178,18 @@
                                    
                                 </Hyperlink>,
                                 <Hyperlink x:Name="CMYKUri" NavigateUri="https://uk.wikipedia.org/wiki/CMYK" RequestNavigate="Hyperlink_RequestNavigate">
-                                    <!--<i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="RequestNavigate">
-                                            <i:InvokeCommandAction Command="{Binding Path=HyperLinkManage}" CommandParameter="{Binding ElementName=CMYKUri.RequestNavigate}"></i:InvokeCommandAction>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>-->
+                               
                                     CMYK</Hyperlink> ,
                                 <Hyperlink x:Name="HSLUri" NavigateUri="https://uk.wikipedia.org/wiki/HSL" RequestNavigate="Hyperlink_RequestNavigate">
                                     HSL</Hyperlink>
                             </Bold> або
-                            <Bold>в наших навчальних матеріалах</Bold>
+                            <Bold>в наших навчальних матеріалах
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDown">
+                                        <i:InvokeCommandAction Command="{Binding Path=TutorialClick}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Bold>
 
                         </Paragraph>
                     </FlowDocument>

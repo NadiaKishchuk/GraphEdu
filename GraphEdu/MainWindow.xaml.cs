@@ -4,15 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Media.Imaging;
+
+using GraphEdu.Pages;
+
+
 namespace GraphEdu
 {
     /// <summary>
@@ -20,23 +17,62 @@ namespace GraphEdu
     /// </summary>
     public partial class MainWindow : Window
     {
+        FigureMoving figure=null;
+        Fractals fractal = null;
+        Colors colors = null;
+        Tutorial tutorial = null;
+        StartPage startPage;
         public MainWindow()
         {
             InitializeComponent();
-            Main.Content = new Colors() { DataContext  = new ViewModels.ColorViewModel()};
-        }
-        
-        private void MouseDownFractals(object sender, MouseButtonEventArgs e)
-        {   
-            Main.Content = new Fractals() ;
+
+            startPage = new StartPage() { mainWindow = this};
+            Main.Content = startPage;
+            Keyboard.Focus(tutorial);
+
         }
 
-        private void ColorsClicked(object sender, MouseButtonEventArgs e)
+        public void MouseDownGrapgEdu(object sender, MouseButtonEventArgs e)
         {
-          
-           
-            
+            if (startPage == null)
+                startPage = new StartPage() { mainWindow = this };
+
+            Main.Content = startPage;
         }
-        
+        public void MouseDownFractals(object sender, MouseButtonEventArgs e)
+        {   if (fractal == null)
+                fractal = new Fractals() { parentWindow = this};
+           
+            Main.Content = fractal;
+
+        }
+
+        public void ColorsClicked(object sender, MouseButtonEventArgs e)
+        {
+            if (colors == null)
+                colors = new Colors() { DataContext = new ViewModels.ColorViewModel() { parentWindow = this} };
+
+            Main.Content = colors;
+
+        }
+        public void MovingClicked(object sender, MouseButtonEventArgs e)
+        {
+            if (figure == null)
+                figure = new FigureMoving() { parentWindow = this };
+
+            Main.Content = figure;
+
+        }
+
+        public void TutorialClick(object sender, MouseButtonEventArgs e)
+        {
+            if (tutorial == null)
+                tutorial = new Tutorial();
+
+            Main.Content = tutorial;
+
+        }
+
+
     }
 }

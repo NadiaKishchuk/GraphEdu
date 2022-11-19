@@ -1,20 +1,16 @@
 ﻿using lab2.ViewModels;
 
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Documents;
+
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using ColorHelper;
-using System.Windows;
-using System.Reflection;
-using System.Windows.Ink;
+using Microsoft.Win32;
+using System.IO;
+using System.IO.Compression;
+using System.Windows.Input;
 
 namespace GraphEdu.ViewModels
 {
@@ -28,22 +24,19 @@ namespace GraphEdu.ViewModels
         public WriteableBitmap WriteableBitmapHSL { get; set; }
         public WriteableBitmap WriteableBitmapCMYK { get; set; }
         public lab2.Commands.Command ChangeSaturationYellow { get; set; }
+
+        public lab2.Commands.Command TutorialClick { get; set; }
+        public MainWindow parentWindow;
         public ColorViewModel()
         {
             CommandPopup = new lab2.Commands.Command(ManagePopup);
             ChangeSaturationYellow = new lab2.Commands.Command(ChangeYellowSaturation);
             UploadImageCommand = new lab2.Commands.Command(UploadImage);
-            System.Windows.Media.Color color = new System.Windows.Media.Color();
-            color.R = 192;
-            color.G = 174;
-            color.B = 164;
-            double H = 1, S = 1, L = 1;
-            
-            FromRGBToHSL(color, ref H, ref S, ref L);
-            color.B = 1;
-            FromHSLToRGB(ref color, H, S, L);
-        }
+            TutorialClick = new lab2.Commands.Command((x) => parentWindow.TutorialClick(null, null));
 
+
+        }
+      
         public double Hue { get; set; }
         public double Saturation { get; set; }
         public double Lightness { get; set; }
@@ -53,6 +46,26 @@ namespace GraphEdu.ViewModels
         public double Yellow { get; set; }
         public double Black { get; set; }
    
+        void DownloadImage(object args)
+        {
+            System.Windows.Controls.Image image =args as System.Windows.Controls.Image;
+
+            if (image != null)
+            {
+                SaveFileDialog save = new SaveFileDialog();
+                save.Title = "Save picture as ";
+                save.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp";
+                if (save.ShowDialog() == true)
+                {
+                    JpegBitmapEncoder jpg = new JpegBitmapEncoder();
+                    jpg.Frames.Add(BitmapFrame.Create(WriteableBitmapCMYK));
+                    using (Stream stm = File.Create(save.FileName))
+                    {
+                        jpg.Save(stm);
+                    }
+                }
+            }
+        }
         private System.Windows.Media.Color pixelColor;
         public System.Windows.Media.Color PixelColor
         {
@@ -223,8 +236,8 @@ namespace GraphEdu.ViewModels
         {
             WriteableBitmapHSL?.Clear();
             WriteableBitmapCMYK?.Clear();
-            WriteableBitmapHSL = BitmapFactory.New((int)bitmap.Width, (int)bitmap.Height);
-            WriteableBitmapCMYK = BitmapFactory.New((int)bitmap.Width, (int)bitmap.Height);
+            WriteableBitmapHSL = BitmapFactory.New((int)bitmap.PixelWidth, (int)bitmap.PixelHeight);
+            WriteableBitmapCMYK = BitmapFactory.New((int)bitmap.PixelWidth, (int)bitmap.PixelHeight);
             int stride = bitmap.PixelWidth * 4;
             int size = bitmap.PixelHeight * stride;
             byte[] pixels = new byte[size];
@@ -271,11 +284,13 @@ namespace GraphEdu.ViewModels
                 return;
             System.Windows.Media.Color color;
             double h=1, s=1, l=1;
+            double C, M, Y, K;
+            C = M = Y = K = 0;
             double valueForSaturation= (double)arg;
             
-            for (int i = 0; i < WriteableBitmapHSL.Height; ++i)
+            for (int i = 0; i < WriteableBitmapHSL.PixelHeight; ++i)
             {
-                for (int j = 0; j < WriteableBitmapHSL.Width; ++j)
+                for (int j = 0; j < WriteableBitmapHSL.PixelWidth; ++j)
                 {
                     color= WriteableBitmapHSL.GetPixel(j, i);
                     FromRGBToHSL(in color, ref h, ref s, ref l);
@@ -286,6 +301,8 @@ namespace GraphEdu.ViewModels
                         if (s > 100)
                             s = 100;
                         FromHSLToRGB(ref color, h, s, l);
+                        FromRGBToCMYK(color, ref C, ref M, ref Y, ref K);
+                        FromCMYKToRGB(ref color, C, M, Y, K);
                         WriteableBitmapCMYK.SetPixel(j, i, color);
                     } 
                 }

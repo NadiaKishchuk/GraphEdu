@@ -1,0 +1,90 @@
+﻿<Page x:Class="GraphEdu.Pages.StartPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GraphEdu.Pages"
+      mc:Ignorable="d" 
+      Height="1000" Width="1680"
+      Title="StartPage">
+
+    <Page.Resources>
+        <Style TargetType="Button" x:Key="my:NavigationButton">
+            <Setter Property="FontFamily" Value="Nirmala UI"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Background" Value="#858DC9"/>
+            <Setter Property="Foreground" Value="#E5E8FF"/>
+            <Setter Property="MaxHeight" Value="72"/>
+            <Setter Property="MaxWidth" Value="220"/>
+
+            
+        </Style>
+    </Page.Resources>
+    <Grid Background= "White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition  Width="1180" />
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="570"/>
+            <RowDefinition Height="400"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1" Grid.Column="1" Background="#E5E8FF">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="150"/>
+            </Grid.RowDefinitions>
+            <RichTextBox FontFamily="Nirmala UI" FontSize="24" BorderThickness="0" Background="#E5E8FF" >
+                <FlowDocument>
+
+                    <Paragraph Margin="30 22" TextAlignment="Center" >
+                        Привіт, друже!
+                        <Image Source="/images/waving-hand.png" Width="20" />
+                    </Paragraph>
+
+                    <Paragraph Margin="30 12" >
+                        Думаю, ти любиш пограти в комп’ютерні ігри, або тобі подобаються спецефекти в фільмах і тебе цікавить вони створюються, тоді цей сайт - це перший крок до опанування таких цікавих професій як графічний дизайнер, розробники комп’ютерних ігор, візуалізатор ефектів в кіно та інші.
+                    </Paragraph>
+
+
+                    <Paragraph Margin="30 12" >
+                        Сьогодні ІТ-сфера є доволі популярною та швидко розвивається, і будь-хто може знайти близьку собі до серця професію. Не всі люди, які працюють в ІТ пишуть код, тому ця сфера відкрита для кожного.
+                    </Paragraph>
+
+                    <Paragraph Margin="30 12" >
+                        На цьому сайті ти зможеш переглянути декілька реалізованих робіт та розвинутись у напрямку комп’ютерної графіки.
+                    </Paragraph>
+
+                    <Paragraph TextAlignment="Center" Margin="30 20" >
+                        Цікаво? То нумо працювати
+                        <Image Source="/images/gestures.png" Width="20" Height="20" VerticalAlignment="Bottom"/>
+
+                    </Paragraph>
+
+
+                </FlowDocument>
+
+
+            </RichTextBox>
+            
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource my:NavigationButton}"  Content="Fractals"/>
+                <Button Grid.Column="1" Style="{StaticResource my:NavigationButton}"  Content="Colors"/>
+                <Button Grid.Column="2" Style="{StaticResource my:NavigationButton}"  Content="Figure moving"/>
+                <Button Grid.Column="3" Style="{StaticResource my:NavigationButton}"  Content="Tutorial"/>
+            </Grid>
+        </Grid>
+        <Image Source="/images/catSmile.png" Width=" 120" Height="120" Grid.Row="1" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+
+       
+    </Grid>
+</Page>

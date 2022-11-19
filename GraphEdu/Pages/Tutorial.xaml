@@ -1,0 +1,80 @@
+﻿<Page xmlns:TutorialUserController="clr-namespace:GraphEdu.TutorialUserController"  x:Class="GraphEdu.Pages.Tutorial"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GraphEdu.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="1010" d:DesignWidth="1680"
+      
+      Title="Tutorial" >
+
+    <Page.Resources>
+        <Style TargetType="TextBlock" x:Key="my:textBlockMenu">
+            <Setter  Property="FontSize" Value="22"/>
+            <Setter  Property="FontFamily" Value="Nirmala UI"/>
+            <Setter Property="Margin" Value="15"/>
+        </Style>
+        <Style TargetType="Image" x:Key="my:imageMenu">
+            <Setter Property="Width" Value="25"/>
+            <Setter Property="Height" Value="25"/>
+        </Style>
+    </Page.Resources>
+    <Grid Background="White" >
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="810"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel   HorizontalAlignment="Left" Background="#858DC9" VerticalAlignment="Top" >
+            <StackPanel Margin="0" MaxHeight="182" VerticalAlignment="Top" Background="#858DC9" Width="280" MaxWidth="280">
+                <StackPanel Orientation="Horizontal"  >
+                    <Image Style="{StaticResource my:imageMenu}" Source="/images/TutorialImages/quiz.png" />
+
+                    <TextBlock Foreground="#AAAAAA"  Style="{StaticResource my:textBlockMenu}" Text="Take a quiz"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" MouseDown="GameTextBoxClick">
+                    <Image Style="{StaticResource my:imageMenu}" Source="/images/TutorialImages/snake.png" />
+
+                    <TextBlock FontWeight="DemiBold" x:Name="SnakeTextBox" Style="{StaticResource my:textBlockMenu}" Text="Play snake game"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" MouseDown="InformationTextBoxClick">
+                    <Image Style="{StaticResource my:imageMenu}" Source="/images/TutorialImages/open-book.png" />
+
+                    <TextBlock  x:Name="InformationTextBox" Style="{StaticResource my:textBlockMenu}" Text="Read information"/>
+
+                </StackPanel>
+
+            </StackPanel>
+
+            <Grid Background="#858DC9" Margin="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions >
+                <TextBlock x:Name="ColorTextBox"  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left"  Style="{StaticResource my:textBlockMenu}" Text="&#8226; Colors" MouseDown="TutorialPartClick"/>
+                <TextBlock x:Name="FigureMovingTextBox"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left"  Style="{StaticResource my:textBlockMenu}" Text="&#8226; Figure moving" MouseDown="TutorialPartClick"/>
+                <TextBlock x:Name="FractalTextBox"  Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left"  Style="{StaticResource my:textBlockMenu}" Text="&#8226; Fractals" MouseDown="TutorialPartClick"/>
+                
+            </Grid>
+            
+                
+           
+
+       
+
+
+        </StackPanel>
+        <TutorialUserController:GameSnake Grid.Column="1" x:Name="SnakeControl" Width="810" Height="650"  Focusable="True" VerticalAlignment="Top" />
+        <TutorialUserController:InformationUserController x:Name="InformationController" Grid.Column="1" Visibility="Hidden" VerticalAlignment="Top" />
+        <Image Width="100" Height="100" Grid.Column="2" VerticalAlignment="Bottom" Source="/images/catSmile.png" Margin="0 0 0 15" />
+
+        
+    </Grid>
+</Page>

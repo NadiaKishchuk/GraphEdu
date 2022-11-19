@@ -1,4 +1,6 @@
-﻿using GraphEdu.ViewModels;
+﻿using GraphEdu.Pages;
+using GraphEdu.ViewModels;
+using GraphEdu.Windows;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -27,7 +29,7 @@ namespace GraphEdu
         double curentZoom = 1,
             centerXMul=1,centerYMul=1;
         Color color1,color2,color3;
-
+        public MainWindow parentWindow;
         WriteableBitmap writeableBitmap;
         public Fractals()
         {
@@ -37,12 +39,13 @@ namespace GraphEdu
             color2 = ColorPicker2.Color;
             color3 = ColorPicker3.Color;
             writeableBitmap = BitmapFactory.New((int)FractalImage.Width, (int)FractalImage.Height);
-           DrawFractal(FractalImage, color1, color2, color3, curentZoom);
+            
+            DrawFractal(FractalImage, color1, color2, color3, curentZoom); 
         }
-        void DrawFractal(in Image image,  Color color1,  Color color2,  Color color3,double zoom=1, int maxIteration = 50,double centerXMul=1, double centerYMul=1) 
+        void DrawFractal(in Image image,  Color color1,  Color color2,  Color color3,double zoom=1, int maxIteration = 40,double centerXMul=1, double centerYMul=1) 
         {
 
-            int  curIteration = 0;
+            int  curIteration;
 
             Complex pointComplex;
             writeableBitmap.Clear();
@@ -57,7 +60,7 @@ namespace GraphEdu
             double xmin = -w / 2*centerXMul;
             double ymin = -h / 2* centerYMul;
             double x, y = ymin;
-            double dx = image.Height / image.Width, dy = image.Width / image.Height;
+            double dx, dy;
 
 
             double xmax = xmin + w, ymax = ymin + h;
@@ -93,12 +96,16 @@ namespace GraphEdu
         void ZoomInImage(object sender, EventArgs e)
         {
             curentZoom *= 0.8;
+         
             DrawFractal(FractalImage, color1, color2, color3, zoom:curentZoom, centerXMul: centerXMul, centerYMul: centerYMul);
+           
         }
         void ZoomOutImage(object sender, EventArgs e)
         {
             curentZoom *=1.25;
+           
             DrawFractal(FractalImage, color1, color2, color3, zoom: curentZoom, centerXMul: centerXMul, centerYMul: centerYMul);
+           
         }
         void SaveFractal(object sender, RoutedEventArgs e)
         {
@@ -123,8 +130,10 @@ namespace GraphEdu
             color1 = ColorPicker1.Color;
             color2 = ColorPicker2.Color;
             color3 = ColorPicker3.Color;
-            PopupPaint.IsOpen = false;
+            
             DrawFractal(FractalImage, color1, color2, color3, curentZoom, centerXMul: centerXMul, centerYMul: centerYMul);
+            
+           
         }
         void PointColor(ref Color color, int curIteration, int maxIteration,
             Color color1,Color color2,Color color3)
@@ -208,20 +217,24 @@ namespace GraphEdu
             Point dropPosition = e.GetPosition(FractalImage);
             centerXMul +=2*(dropPosition.X -startMovePos.X)/FractalImage.Width;
             centerYMul +=2* (dropPosition.Y - startMovePos.Y)/FractalImage.Height;
+           
             DrawFractal(FractalImage, ColorPicker1.Color, ColorPicker2.Color, ColorPicker3.Color,
                 zoom:curentZoom, centerXMul:centerXMul,centerYMul: centerYMul);
+            
         }
      
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            // for .NET Core you need to add UseShellExecute = true
-            // see https://docs.microsoft.com/dotnet/api/system.diagnostics.processstartinfo.useshellexecute#property-value
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
             e.Handled = true;
         }
       
        
      
+        private void TutorialClick(object sender, MouseButtonEventArgs e)
+        {
+            parentWindow.TutorialClick(sender, e);
+        }
         private void PopupPaintControl(object sender, RoutedEventArgs e)
         {
             if (PopupPaint.IsOpen)

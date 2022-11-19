@@ -1,0 +1,212 @@
+﻿<Page xmlns:syncfusion="http://schemas.syncfusion.com/wpf" 
+      x:Class="GraphEdu.Pages.FigureMoving"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+
+      Height="1000" Width="1680"
+      Title="FigureMoving"  Loaded="PageLoaded">
+
+    <Page.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Nirmala UI"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+
+            <Setter Property="FontSize" Value="18"/>
+
+        </Style>
+        <Style TargetType="syncfusion:DoubleTextBox">
+            <Setter Property="FontFamily" Value="Nirmala UI"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+
+            <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Margin" Value="2 0"></Setter>
+
+        </Style>
+        <Style x:Key="SideBarButtonsFractal" TargetType="Button">
+            <Setter Property="Background" Value="#E5E8FF"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Width" Value="55"/>
+            <Setter Property="Height" Value="55" />
+
+        </Style>
+
+
+
+    </Page.Resources>
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="240" />
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition  Width="1100"/>
+            <ColumnDefinition Width="70"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions >
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="600" />
+            <RowDefinition Height="210"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Column="3" FontFamily="Nirmala UI" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Moving with x=y trajectory"/>
+        <Grid Grid.Row="1" Grid.Column="1" MaxHeight="600" VerticalAlignment="Top" Background="#E5E8FF">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="50"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition  Height="30" />
+                <RowDefinition Height=" 200" />
+
+                <RowDefinition  Height="30"/>
+                <RowDefinition  Height="30"/>
+
+                <RowDefinition Height="100"/>
+                <RowDefinition  Height="30"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="1" Grid.Column="1" FontFamily="Nirmala UI" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Triangle point"/>
+            <!--#region  enter point triangle-->
+            <Grid Grid.Row="2" Grid.Column="1" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="X" Grid.Column="1"/>
+                <TextBlock Text="Y" Grid.Column="2"/>
+
+                <TextBlock Text="A" Grid.Column="0" Grid.Row="1"/>
+                <syncfusion:DoubleTextBox  Name="X1DoubleBox" Text="Y" Grid.Column="1" Grid.Row="1" Value="-18"/>
+                <syncfusion:DoubleTextBox Name="Y1DoubleBox" Text="X" Grid.Column="2" Grid.Row="1" Value="7"/>
+
+                <TextBlock Text="B" Grid.Column="0" Grid.Row="2"/>
+                <syncfusion:DoubleTextBox  Name="X2DoubleBox" Text="X" Grid.Column="1" Grid.Row="2" Value="-16"/>
+                <syncfusion:DoubleTextBox Name="Y2DoubleBox" Text="Y" Grid.Column="2" Grid.Row="2" Value="5"/>
+                
+                <TextBlock Text="C" Grid.Column="0" Grid.Row="3"/>
+                <syncfusion:DoubleTextBox Name="X3DoubleBox" Text="X" Grid.Column="1" Grid.Row="3" Value="-13"/>
+                <syncfusion:DoubleTextBox Name="Y3DoubleBox" Text="Y" Grid.Column="2" Grid.Row="3" Value="8"/>
+            </Grid>
+            <!--#endregion-->
+
+
+            <TextBlock Text="Scaling factor" Grid.Row="3" Grid.Column="1"/>
+            <syncfusion:DoubleTextBox Name="ScalingFactor" MaxValue="10" MinValue="0" Grid.Row="4" Grid.Column="1" Value ="1" Width="110"/>
+
+            <RichTextBox Visibility="Hidden" x:Name="WarningText" Foreground="Red" Grid.Row="5" Grid.Column="1">
+                <FlowDocument>
+                    <Paragraph Name="ParagraphWarnigng">
+                        Неможливо створити трикутник. Сума будь-яких двох його сторін більше третьою боку.
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
+            <Button Background="#858DC9" Name="but"  Click="Button_Click"  Content="{Binding Path=ButtonText}" FontFamily="Nirmala UI" FontSize="18" Grid.Row="6" Grid.Column="1"/>
+
+           <Image  HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="1" Grid.Row="8"
+                Source="../images/catSmile.png"/>
+
+        </Grid>
+        <Canvas x:Name="CanvaElement" Grid.Column="3" Grid.Row="1" Background="AntiqueWhite" MouseMove="CanvaMouseMove" Drop="CanvaMouseDrop" AllowDrop="True"/>
+
+        <Grid Grid.Row="1" Grid.Column="4" Margin="0" Background="#E5E8FF">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="70" />
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="220" />
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="60" />
+                <RowDefinition   Height="10"/>
+            </Grid.RowDefinitions>
+
+            <Button Style="{StaticResource  SideBarButtonsFractal}"  Click="SaveImage"  >
+            <Image Source="../images/direct-download.png" />
+            <Button.ToolTip>
+                <ToolTip Background="#858DC9"  FontFamily="Nirmala UI">
+                    Завантажити
+                </ToolTip>
+            </Button.ToolTip>
+            </Button>
+
+            <Button Grid.Row="2" Style="{StaticResource  SideBarButtonsFractal}" Click="ZoomOut"  Margin=" 0 0 0 5" >
+                <Image Source="../images/zoomOut.png"  />
+                <Button.ToolTip>
+                    <ToolTip Background="#858DC9"  FontFamily="Nirmala UI">
+                        Зменшити
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+
+            <Button  Grid.Row="3" Style="{StaticResource  SideBarButtonsFractal}"  Click="ZoomIn"  >
+                <Image Source="../images/zoomIn.png" />
+                <Button.ToolTip>
+                    <ToolTip Background="#858DC9" Foreground="Black" FontFamily="Nirmala UI">
+                        Збільшити
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+
+
+            <Button x:Name="HintButtonFractals"  Grid.Row="5"   Style="{StaticResource  SideBarButtonsFractal}"  >
+                <Image Source="../images/idea.png" />
+                <Button.ToolTip>
+                    <ToolTip BorderThickness="0"  Background="#858DC9" Width="300" >
+                        <RichTextBox   Background="#858DC9" BorderThickness="0" BorderBrush="#858DC9" >
+                            <FlowDocument >
+                                <Paragraph  FontSize="13" FontFamily="Nirmala UI" >Щоб змінити колір зображення, натисни на
+                                    Введи значення (х, у) для кожної точки трикутника та коефіцієнт збільшення, натисни на “Start” та спостерігай за рухом трикутника. За допомогою <Image Width="13" Source="/images/zoomIn.png" />
+ <Image Width="13" Source="/images/zoomOut.png" />
+можна збільшити та зменшити зображення
+
+                                </Paragraph>
+                            </FlowDocument>
+                        </RichTextBox>
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+
+            <Button x:Name="QuestionButtonFractals" Grid.Row="6"   Style="{StaticResource  SideBarButtonsFractal}"  MouseEnter="Question_MouseEnter"  HorizontalAlignment="Center"  VerticalAlignment="Bottom" >
+                <Image Source="../images/question.png" />
+            </Button>
+
+
+            <Popup Name="popupQuestion" PlacementTarget="{Binding ElementName=QuestionButtonFractals }" MouseLeave="Question_MouseLeave">
+                <RichTextBox IsReadOnly="True" IsDocumentEnabled="True"  Background="#858DC9"  Width="300" >
+                    <FlowDocument Background="#858DC9">
+                        <Paragraph Background="#858DC9" FontSize="13" FontFamily="Nirmala UI" >
+                            Афінне перетворення — відображення площини або простору в собі.
+                            Детальніше про таку магію можна дізнатись в
+                            <Bold MouseDown="TutorialClick">наших навчальних матеріалах</Bold> 
+                           або 
+                            <Bold>
+                                <Hyperlink  NavigateUri="https://uk.wikipedia.org/wiki/%D0%90%D1%84%D1%96%D0%BD%D0%BD%D0%B5_%D0%BF%D0%B5%D1%80%D0%B5%D1%82%D0%B2%D0%BE%D1%80%D0%B5%D0%BD%D0%BD%D1%8F" RequestNavigate="Hyperlink_RequestNavigate" >
+                                    тут
+                                </Hyperlink>
+                            </Bold>
+                           
+                        </Paragraph>
+                    </FlowDocument>
+                </RichTextBox>
+            </Popup>
+        </Grid>
+
+        
+    </Grid>
+</Page>
