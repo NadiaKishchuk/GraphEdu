@@ -56,24 +56,7 @@ namespace GraphEdu.ViewModels
             set { y3 = value; OnPropertyChanged("Y3"); }
         }
         double y3 = 0;
-
         public lab2.Commands.Command MovingFigure { get; set; }
         public bool moving = false;
-
-        public FigureMovingViewModel()
-        {
-            //MovingFigure = new lab2.Commands.Command(
-            //    (arg)=>new Task(()=>MoveFigure(arg)).Start()  
-            //    );
-            //MovingFigure = new lab2.Commands.Command(MoveFigure);
-            
-            
-        }
-        
-        
-      
-
-
-
     }
 }
