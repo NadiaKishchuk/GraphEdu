@@ -158,9 +158,6 @@ namespace GraphEdu
                 }
                 else if (curIteration < 4)
                 {
-                    //color.B = 1;
-                    //color.G = 227;
-                    //color.R = 248;//жовтий
                     color = color3;
                 }
                 else if (curIteration < 5)
@@ -171,9 +168,6 @@ namespace GraphEdu
                 }
                 else if (curIteration < 6)
                 {
-                    //color.B = 238;
-                    //color.G = 59;
-                    //color.R = 243;// яскраво фіолетоий фуксія
                     color = color2;
                 }
                 else if (curIteration < 8)
@@ -190,9 +184,6 @@ namespace GraphEdu
                 }
                 else if (curIteration < 70)
                 {
-                    //color.B = 0;
-                    //color.G = 255;//green
-                    //color.R = 0;
                     color = color1;
                 }
                 else
